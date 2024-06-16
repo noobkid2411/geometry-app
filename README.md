@@ -17,7 +17,7 @@ This React-based application allows you to interactively create geometric figure
 1. **Clone the Repository:**
 
    ```bash
-   git clone <repository-url> 
+   git clone https://github.com/noobkid2411/geometry-app.git
    cd my-geometry-app      
 
 
