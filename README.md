@@ -39,8 +39,8 @@ This React-based application allows you to interactively create geometric figure
     Click the button again (now light gray) to disable drawing mode.
 
 4. **Dependencies**
-    React: The core JavaScript library for building user interfaces.
-    Tailwind CSS: A utility-first CSS framework for rapid UI development.
+   -  React: The core JavaScript library for building user interfaces.
+   -  Tailwind CSS: A utility-first CSS framework for rapid UI development.
 
 5. **Customization (Optional)**
     You can customize the app by modifying the following files:
