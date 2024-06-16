@@ -1,12 +1,12 @@
 // src/Canvas.js
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from "react";
 
 const Canvas = () => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState(null);
   const [isDrawingEnabled, setIsDrawingEnabled] = useState(false);
-  
+
   const [points, setPoints] = useState([]);
   const [lines, setLines] = useState([]);
   const [angles, setAngles] = useState([]);
@@ -17,12 +17,12 @@ const Canvas = () => {
 
   const drawCanvas = () => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.fillStyle = 'white';
+    const context = canvas.getContext("2d");
+    context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw dotted grid
-    context.fillStyle = '#ddd';
+    context.fillStyle = "#ddd";
     for (let x = 0; x < canvas.width; x += 10) {
       for (let y = 0; y < canvas.height; y += 10) {
         context.beginPath();
@@ -32,17 +32,21 @@ const Canvas = () => {
     }
 
     // Draw points
-    context.fillStyle = 'black';
-    context.font = '12px Arial';
+    context.fillStyle = "black";
+    context.font = "12px Arial";
     points.forEach((point, index) => {
       context.beginPath();
       context.arc(point.x, point.y, 3, 0, Math.PI * 2, true);
       context.fill();
-      context.fillText(String.fromCharCode(65 + index), point.x + 5, point.y - 5); // Label points A, B, C, ...
+      context.fillText(
+        String.fromCharCode(65 + index),
+        point.x + 5,
+        point.y - 5
+      ); // Label points A, B, C, ...
     });
 
     // Draw lines and lengths
-    context.strokeStyle = 'black';
+    context.strokeStyle = "black";
     context.lineWidth = 1;
     lines.forEach((line) => {
       context.beginPath();
@@ -51,23 +55,32 @@ const Canvas = () => {
       context.stroke();
 
       // Calculate and display the length
-      const length = Math.sqrt(
-        Math.pow(line.end.x - line.start.x, 2) + Math.pow(line.end.y - line.start.y, 2)
-      ) / 30; // Convert to cm
+      const length =
+        Math.sqrt(
+          Math.pow(line.end.x - line.start.x, 2) +
+            Math.pow(line.end.y - line.start.y, 2)
+        ) / 30; // Convert to cm
       const roundedLength = Math.floor(length);
-      if(roundedLength){
-      context.fillText(
-        `${roundedLength} cm`,
-        (line.start.x + line.end.x) / 2 + 5,
-        (line.start.y + line.end.y) / 2 - 5
-      );}
+      if (roundedLength) {
+        context.fillText(
+          `${roundedLength} cm`,
+          (line.start.x + line.end.x) / 2 + 5,
+          (line.start.y + line.end.y) / 2 - 5
+        );
+      }
     });
 
     // Draw angles
-    context.fillStyle = 'red';
+    context.fillStyle = "red";
     angles.forEach((angle) => {
-      const startAngle = Math.atan2(angle.start.y - angle.vertex.y, angle.start.x - angle.vertex.x);
-      const endAngle = Math.atan2(angle.end.y - angle.vertex.y, angle.end.x - angle.vertex.x);
+      const startAngle = Math.atan2(
+        angle.start.y - angle.vertex.y,
+        angle.start.x - angle.vertex.x
+      );
+      const endAngle = Math.atan2(
+        angle.end.y - angle.vertex.y,
+        angle.end.x - angle.vertex.x
+      );
 
       let adjustedEndAngle = endAngle;
       if (angle.counterclockwise) {
@@ -104,7 +117,7 @@ const Canvas = () => {
   };
 
   const handleMouseDown = (e) => {
-    if(!isDrawingEnabled) return;
+    if (!isDrawingEnabled) return;
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -124,7 +137,7 @@ const Canvas = () => {
     if (!isDrawing) return;
 
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
     const endPoint = {
       x: e.clientX - rect.left,
@@ -138,14 +151,16 @@ const Canvas = () => {
     context.beginPath();
     context.moveTo(startPoint.x, startPoint.y);
     context.lineTo(endPoint.x, endPoint.y);
-    context.strokeStyle = 'black';
+    context.strokeStyle = "black";
     context.lineWidth = 1;
     context.stroke();
 
     // Calculate and display the length dynamically
-    const length = Math.sqrt(
-      Math.pow(endPoint.x - startPoint.x, 2) + Math.pow(endPoint.y - startPoint.y, 2)
-    ) / 30; // Convert to cm
+    const length =
+      Math.sqrt(
+        Math.pow(endPoint.x - startPoint.x, 2) +
+          Math.pow(endPoint.y - startPoint.y, 2)
+      ) / 30; // Convert to cm
     const roundedLength = Math.floor(length);
     context.fillText(
       `${roundedLength} cm`,
@@ -157,7 +172,10 @@ const Canvas = () => {
     if (lines.length > 0) {
       const lastLine = lines[lines.length - 1];
       if (arePointsEqual(lastLine.end, startPoint)) {
-        const angle = calculateAngle(lastLine, { start: startPoint, end: endPoint });
+        const angle = calculateAngle(lastLine, {
+          start: startPoint,
+          end: endPoint,
+        });
         drawDynamicAngle(context, angle);
       }
     }
@@ -183,25 +201,36 @@ const Canvas = () => {
     const newLine = { start: startPoint, end: finalEndPoint };
     setLines((prevLines) => [...prevLines, newLine]);
 
-    if (lines.length > 0) {
+    if (lines.length) {
       const lastLine = lines[lines.length - 1];
       if (arePointsEqual(lastLine.end, newLine.start)) {
         const angle = calculateAngle(lastLine, newLine);
         setAngles((prevAngles) => [...prevAngles, angle]);
+        console.log(angles);
+      }
+      if (existingEndPoint) {
+        if (arePointsEqual(newLine.end, existingEndPoint)) {
+          const existingLine = lines?.find((line) =>
+            arePointsEqual(line.start, existingEndPoint)
+          );
+          console.log(existingLine);
+          if (existingLine) {
+            const angle = calculateAngle(newLine, existingLine);
+            setAngles((prevAngles) => [...prevAngles, angle]);
+          }
+        }
       }
     }
-
     setIsDrawing(false);
     setStartPoint(null);
   };
-
-
 
   const findExistingPoint = (point) => {
     const threshold = 5; // Distance threshold in pixels to consider points as the same
     for (const existingPoint of points) {
       const distance = Math.sqrt(
-        Math.pow(existingPoint.x - point.x, 2) + Math.pow(existingPoint.y - point.y, 2)
+        Math.pow(existingPoint.x - point.x, 2) +
+          Math.pow(existingPoint.y - point.y, 2)
       );
       if (distance < threshold) {
         return existingPoint;
@@ -235,7 +264,6 @@ const Canvas = () => {
     const angleInRadians = Math.acos(clampedCosineTheta);
     let angleInDegrees = angleInRadians * (180 / Math.PI);
 
-    
     if (angleInDegrees > 90) {
       angleInDegrees = 180 - angleInDegrees;
     }
@@ -244,7 +272,6 @@ const Canvas = () => {
     let start = line1.start;
     let end = line2.end;
 
-    
     const crossProduct = vector1.x * vector2.y - vector1.y * vector2.x;
     const counterclockwise = crossProduct > 0;
     return {
@@ -257,8 +284,14 @@ const Canvas = () => {
   };
 
   const drawDynamicAngle = (context, angle) => {
-    const startAngle = Math.atan2(angle.start.y - angle.vertex.y, angle.start.x - angle.vertex.x);
-    const endAngle = Math.atan2(angle.end.y - angle.vertex.y, angle.end.x - angle.vertex.x);
+    const startAngle = Math.atan2(
+      angle.start.y - angle.vertex.y,
+      angle.start.x - angle.vertex.x
+    );
+    const endAngle = Math.atan2(
+      angle.end.y - angle.vertex.y,
+      angle.end.x - angle.vertex.x
+    );
 
     let adjustedEndAngle = endAngle;
     if (angle.counterclockwise) {
@@ -280,7 +313,7 @@ const Canvas = () => {
       adjustedEndAngle,
       angle.counterclockwise
     );
-    context.strokeStyle = 'red';
+    context.strokeStyle = "red";
     context.lineWidth = 1;
     context.stroke();
 
@@ -300,7 +333,7 @@ const Canvas = () => {
     drawCanvas(); // Update canvas based on button state
   };
 
-  const findAndAddAnglesAtPoints = () => {
+  /* const findAndAddAnglesAtPoints = () => {
     points.forEach(point => {
       const connectedLines = lines.filter(line => 
         line.end === point || line.start === point 
@@ -321,22 +354,18 @@ const Canvas = () => {
         }
       }
     });
-  };
+  }; */
 
-
-
-  const areAnglesEqual = (angle1, angle2) => {
+  /* const areAnglesEqual = (angle1, angle2) => {
     return angle1.vertex.x === angle2.vertex.x &&
            angle1.vertex.y === angle2.vertex.y &&
            angle1.degrees === angle2.degrees;
   };
-
+ */
   useEffect(() => {
+    console.log(angles);
     drawCanvas();
-    findAndAddAnglesAtPoints(); // Call the function after each drawing update
-    console.log(lines,angles)
-  }, [lines]); // Include angles to trigger effect after angle addition
-  
+  }, [angles]); // Include angles to trigger effect after angle addition
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -350,21 +379,35 @@ const Canvas = () => {
         onMouseUp={handleMouseUp}
       ></canvas>
       <div className="rounded-md w-[600px] p-2 mt-2 bg-yellow-100 hover:bg-green">
-      <div className='flex items-left'>
-         <button style={{ backgroundColor: isDrawingEnabled ? 'lightYellow' : 'yellow'} } className="rounded-md p-2 bg-blue hover:bg-green"
-         onClick={handleToggleDrawing}> 
-         
-      <svg width="24" height="10" viewBox="0 0 24 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="4" cy="5" r="2" fill="black" />
-        <circle cx="20" cy="5" r="2" fill="black" />
-        <line x1="6" y1="5" x2="18" y2="5" stroke="black" strokeWidth="2" />
-        
-      </svg>
-      
-    </button>
-    </div>
-    </div>
-     
+        <div className="flex items-left">
+          <button
+            style={{
+              backgroundColor: isDrawingEnabled ? "lightYellow" : "yellow",
+            }}
+            className="rounded-md p-2 bg-blue hover:bg-green"
+            onClick={handleToggleDrawing}
+          >
+            <svg
+              width="24"
+              height="10"
+              viewBox="0 0 24 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="4" cy="5" r="2" fill="black" />
+              <circle cx="20" cy="5" r="2" fill="black" />
+              <line
+                x1="6"
+                y1="5"
+                x2="18"
+                y2="5"
+                stroke="black"
+                strokeWidth="2"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
