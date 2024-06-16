@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Interactive Geometry App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React-based application allows you to interactively create geometric figures, calculate lengths, and measure angles on a canvas.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Point Creation:** Click on the canvas to create points. Points are automatically labeled with letters (A, B, C...).
+- **Line Segment Drawing:** Connect points to draw line segments. The length of each segment is calculated and displayed dynamically.
+- **Angle Measurement:** Click on a point where two lines intersect to measure the angle between them. The angle is calculated and displayed dynamically. The app will always calculate and display the smaller angle between the two intersecting lines.
+- **Dotted Grid:** A dotted grid helps with alignment and visualization.
+- **Drawing Toggle:**  Easily enable or disable drawing mode using a button that changes color to indicate the current state (yellow for drawing enabled, light gray for disabled).
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Clone the Repository:**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   ```bash
+   git clone <repository-url> 
+   cd my-geometry-app      
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install Dependencies:**
 
-### `npm run build`
+    ```bash
+    npm install
+    Use code with caution.
+3. **Usage**
+    Run the App:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```bash
+    npm run start
+   
+    Drawing Mode:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    Click the button (initially yellow) to enable drawing mode.
+    Click on the canvas to create points.
+    Click and drag from one point to another to draw lines.
+    Click on a point where two lines intersect to measure and display the smaller angle.
+    Click the button again (now light gray) to disable drawing mode.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Dependencies**
+    React: The core JavaScript library for building user interfaces.
+    Tailwind CSS: A utility-first CSS framework for rapid UI development.
 
-### `npm run eject`
+5. **Customization (Optional)**
+    You can customize the app by modifying the following files:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    src/Canvas.js: This file contains the main logic for drawing, calculations, and user interactions.
+    tailwind.config.js: Adjust Tailwind CSS configurations for colors, spacing, and other styles.
