@@ -1,6 +1,8 @@
 # Interactive Geometry App
 
 This React-based application allows you to interactively create geometric figures, calculate lengths, and measure angles on a canvas.
+![App Image](image.png)
+![App Image](img2.png)
 
 ## Features
 

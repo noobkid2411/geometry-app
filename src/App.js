@@ -8,8 +8,10 @@ const App = () => {
     <div className="App">
        <div className='flex flex-col content-center justify-center'>
               <p className='flex text-l font-inter font-bold mx-auto p-1 mt-2'>Geometry App: Making Shapes</p>
+
+              <Canvas />
       </div>
-      <Canvas />
+      
     </div>
   );
 };
