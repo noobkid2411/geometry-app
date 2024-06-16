@@ -1,25 +1,17 @@
-import logo from './logo.svg';
+// src/App.js
+import React from 'react';
+import Canvas from './canvas';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <div className='flex flex-col content-center justify-center'>
+              <p className='flex text-l font-inter font-bold mx-auto p-1 mt-2'>Geometry App: Making Shapes</p>
+      </div>
+      <Canvas />
     </div>
   );
-}
+};
 
 export default App;
